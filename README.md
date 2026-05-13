@@ -43,6 +43,8 @@ API REST desenvolvida com Java + Spring Boot para gerenciamento de usuários, sa
 
 ---
 
+https://github.com/Miquelino/reserva-salas-api/blob/main/docs/postman/ReservaSala.postman_collection.json
+
 # Estrutura do Projeto
 
 ```text
