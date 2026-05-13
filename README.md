@@ -43,8 +43,22 @@ API REST desenvolvida com Java + Spring Boot para gerenciamento de usuários, sa
 
 ---
 
-https://github.com/Miquelino/reserva-salas-api/blob/main/docs/postman/ReservaSala.postman_collection.json
+## 📬 Collection do Postman
 
+Para facilitar os testes da API, a collection e o environment do Postman estão disponíveis abaixo:
+
+### 📁 Arquivos
+
+- [Collection da API](docs/postman/reserva-api.postman_collection.json)
+- [Environment](docs/postman/reserva-api.postman_environment.json)
+
+### 🚀 Como importar no Postman
+
+1. Abra o Postman
+2. Clique em **Import**
+3. Arraste os arquivos `.json`
+4. Selecione o environment importado
+5. Teste os endpoints
 # Estrutura do Projeto
 
 ```text
