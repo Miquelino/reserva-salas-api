@@ -1,6 +1,7 @@
 # Sistema de Reserva de Salas
 
 Projeto criado para a Checkpoint Desenvolvimento Back-End Java - Nível 1 da Alura.
+
 API REST desenvolvida com Java + Spring Boot para gerenciamento de usuários, salas e reservas de ambientes.
 
 ---
