@@ -1,0 +1,165 @@
+# Versão da sintaxe do Docker Compose
+# Não é a versão do Docker instalado na máquina.
+version: '3.9'
+
+
+# Aqui definimos os containers/serviços da aplicação
+services:
+
+
+  # =========================
+  # SERVIÇO DA API SPRING
+  # =========================
+  app:
+
+    # Diz para o Docker construir uma imagem
+    # usando o Dockerfile da pasta atual (.)
+    build: .
+
+    # Nome fixo do container
+    # Facilita logs e identificação
+    container_name: reserva-api
+
+
+    # Mapeamento de portas
+    # ESQUERDA = porta da máquina
+    # DIREITA = porta do container
+    #
+    # localhost:8080 -> container:8080
+    ports:
+      - "8080:8080"
+
+
+    # Variáveis de ambiente
+    # O Spring Boot vai ler esses valores
+    # usando ${VARIAVEL} no application.properties
+    environment:
+
+      # Porta da aplicação Spring
+      PORT: 8080
+
+      # URL do banco
+      #
+      # IMPORTANTE:
+      # "db" é o nome do serviço PostgreSQL
+      # dentro da rede Docker.
+      #
+      # NÃO usamos localhost aqui.
+      DB_URL: jdbc:postgresql://db:5432/reservas
+
+      # Usuário do banco
+      DB_USERNAME: postgres
+
+      # Senha do banco
+      DB_PASSWORD: 123456
+
+
+    # Define dependência entre containers
+    #
+    # Faz o Docker iniciar o banco antes da API.
+    #
+    # IMPORTANTE:
+    # Isso NÃO garante que o banco estará pronto,
+    # apenas que o container foi iniciado primeiro.
+    depends_on:
+      - db
+
+
+    # Coloca o container na rede "reserva-network"
+    #
+    # Isso permite comunicação entre:
+    # app <-> db
+    networks:
+      - reserva-network
+
+
+
+  # =========================
+  # SERVIÇO DO POSTGRESQL
+  # =========================
+  db:
+
+    # Imagem oficial do PostgreSQL
+    #
+    # ":16" = versão do PostgreSQL
+    image: postgres:16
+
+    # Nome fixo do container
+    container_name: postgres-reservas
+
+
+    # Variáveis usadas pela imagem do PostgreSQL
+    environment:
+
+      # Nome do banco criado automaticamente
+      POSTGRES_DB: reservas
+
+      # Usuário administrador
+      POSTGRES_USER: postgres
+
+      # Senha do banco
+      POSTGRES_PASSWORD: 123456
+
+
+    # Mapeamento de portas
+    #
+    # Permite acessar o PostgreSQL pela máquina local.
+    #
+    # Exemplo:
+    # DBeaver -> localhost:5432
+    ports:
+      - "5432:5432"
+
+
+    # Volume persistente
+    #
+    # SEM volume:
+    # ao remover o container -> banco é perdido
+    #
+    # COM volume:
+    # os dados continuam salvos
+    volumes:
+
+      # ESQUERDA:
+      # nome do volume Docker
+      #
+      # DIREITA:
+      # pasta interna onde o PostgreSQL salva dados
+      - postgres_data:/var/lib/postgresql/data
+
+
+    # Coloca o banco na mesma rede da API
+    networks:
+      - reserva-network
+
+
+
+# =========================
+# REDES DOCKER
+# =========================
+networks:
+
+  # Rede virtual criada pelo Docker
+  #
+  # Containers nessa rede conseguem
+  # se comunicar pelo nome do serviço.
+  #
+  # Exemplo:
+  # app acessa banco usando:
+  # jdbc:postgresql://db:5432/reservas
+  reserva-network:
+
+
+
+# =========================
+# VOLUMES DOCKER
+# =========================
+volumes:
+
+  # Volume persistente do PostgreSQL
+  #
+  # O Docker gerencia esse armazenamento.
+  #
+  # Mesmo removendo o container,
+  # os dados continuam salvos.
+  postgres_data:
