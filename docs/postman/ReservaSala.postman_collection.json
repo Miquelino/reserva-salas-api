@@ -1,0 +1,331 @@
+{
+  "info": {
+    "_postman_id": "cbace1cf-80ba-4b4b-9cc5-52f4b400bf57",
+    "name": "ReservaSala",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12904640"
+  },
+  "item": [
+    {
+      "name": "Usuario",
+      "item": [
+        {
+          "name": "Cadastrar Usuario",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Rey\",\r\n  \"email\": \"Reynaldo@email.com\",\r\n  \"idade\": 32,\r\n  \"cpf\": \"11144477723\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cadastrarUsuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cadastrarUsuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/listarUsuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listarUsuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/deletar/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "deletar",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Alterar Dados do Usuario",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Ariane Rebechi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/atualizarUsuario/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "atualizarUsuario",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sala",
+      "item": [
+        {
+          "name": "Cadastrar Sala",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\" : \"Sala 110\",\r\n    \"capacidade\" : 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/salas/cadastrar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "salas",
+                "cadastrar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Salas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"inicio\": \"2026-05-07T10:00:00\",\r\n  \"fim\": \"2026-05-07T11:00:00\",\r\n  \"salaId\": 1,\r\n  \"usuarioId\": 3\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/salas/listarSalas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "salas",
+                "listarSalas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Salas",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/salas/deletar/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "salas",
+                "deletar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Alterar dados da Sala",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\" : \"Sala Clinica\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/salas/atualizarSala/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "salas",
+                "atualizarSala",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reservar",
+      "item": [
+        {
+          "name": "Realizar Reserva",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"inicio\": \"2026-05-07T10:00:00\",\r\n  \"fim\": \"2026-05-07T11:00:00\",\r\n  \"salaId\": 2,\r\n  \"usuarioId\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/reservasala/reservar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reservasala",
+                "reservar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Reservas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reservasala/listarReservas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reservasala",
+                "listarReservas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Reserva",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reservasala/deletar/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reservasala",
+                "deletar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Alterar Dados da Reserva",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n            \"inicio\": \"2026-05-08T10:00:00\",\r\n            \"fim\": \"2026-05-08T11:00:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/reservasala/alterarReserva/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reservasala",
+                "alterarReserva",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
