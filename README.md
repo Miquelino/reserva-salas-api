@@ -43,6 +43,8 @@ API REST desenvolvida com Java + Spring Boot para gerenciamento de usuários, sa
 
 ---
 
+https://web.postman.co/workspace/My-Workspace~2e46fed4-7042-4b0b-8f97-3c80a34c364e/collection/12904640-cbace1cf-80ba-4b4b-9cc5-52f4b400bf57?action=share&source=copy-link&creator=12904640
+
 # Estrutura do Projeto
 
 ```text
