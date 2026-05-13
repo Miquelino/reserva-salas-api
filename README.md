@@ -70,6 +70,119 @@ src
  └── resources
 ```
 
+## 🐳 Como Rodar o Projeto com Docker
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/Miquelino/reserva-salas-api.git
+```
+
+---
+
+### 2. Entre na pasta do projeto
+
+```bash
+cd reserva-salas-api
+```
+
+---
+
+### 3. Gere o `.jar` da aplicação
+
+```bash
+mvn clean package
+```
+
+---
+
+### 4. Gere a imagem Docker
+
+```bash
+docker build -t reserva-salas-api .
+```
+
+---
+
+### 5. Execute o container
+
+```bash
+docker run -p 8080:8080 reserva-salas-api
+```
+
+A API estará disponível em:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## 📬 Como Importar a Collection do Postman
+
+### 1. Abra o Postman
+
+### 2. Clique em `Import`
+
+### 3. Selecione os arquivos localizados em:
+
+```text
+docs/postman/
+```
+
+### 4. Importe:
+
+- `reserva-api.postman_collection.json`
+- `reserva-api.postman_environment.json`
+
+---
+
+## 📌 Regras de Negócio
+
+### Usuários
+
+- Nome obrigatório
+- Email obrigatório e único
+- CPF único
+- Idade deve ser maior que zero
+
+### Salas
+
+- Nome obrigatório
+- Capacidade deve ser maior que zero
+- Apenas salas ativas podem receber reservas
+
+### Reservas
+
+- Data de início deve ser antes da data de fim
+- Não é permitido conflito de horário na mesma sala
+- Reservas canceladas não entram na validação de conflito
+- Toda reserva deve possuir:
+  - uma sala
+  - um usuário
+
+---
+
+## 🧩 Diagrama Simples das Entidades
+
+```text
+Usuario
+  └── 1:N → Reserva
+
+Sala
+  └── 1:N → Reserva
+
+Reserva
+  ├── N:1 → Usuario
+  └── N:1 → Sala
+```
+
+---
+
+## 📷 Prints dos Endpoints
+
+Os prints dos endpoints serão adicionados futuramente.
+
 ## 🚀 Próximas Atualizações
 
 Melhorias planejadas para evolução da API:
@@ -99,18 +212,3 @@ Também serão adicionados ao README:
 - Prints dos endpoints no Postman
 - Regras de negócio da aplicação
 - Diagrama simples das entidades e relacionamentos
-
----
-
-## 🧩 Diagrama Simples das Entidades
-
-```text
-Usuario
-  └── pode possuir várias Reservas
-
-Sala
-  └── pode possuir várias Reservas
-
-Reserva
-  ├── pertence a um Usuario
-  └── pertence a uma Sala
