@@ -68,6 +68,7 @@ src
  ├── repository
  ├── service
  └── resources
+```
 
 ## 🚀 Próximas Atualizações
 
