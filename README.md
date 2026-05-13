@@ -50,7 +50,6 @@ Para facilitar os testes da API, a collection e o environment do Postman estão 
 ### 📁 Arquivos
 
 - [Collection da API](docs/postman/reserva-api.postman_collection.json)
-- [Environment](docs/postman/reserva-api.postman_environment.json)
 
 ### 🚀 Como importar no Postman
 
