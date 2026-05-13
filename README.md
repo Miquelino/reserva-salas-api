@@ -68,3 +68,48 @@ src
  ├── repository
  ├── service
  └── resources
+
+## 🚀 Próximas Atualizações
+
+Melhorias planejadas para evolução da API:
+
+- Padronizar rotas seguindo boas práticas REST
+- Criar tratamento global de erros com `@RestControllerAdvice`
+- Implementar cancelamento de reserva por status, sem deletar do banco
+- Validar conflito de horário também na atualização de reservas
+- Separar DTOs por responsabilidade:
+  - criação
+  - atualização
+  - detalhamento
+- Adicionar Swagger/OpenAPI para documentação interativa
+- Implementar migrations com Flyway
+- Criar testes automatizados para regras de negócio
+- Melhorar mensagens de erro
+- Adicionar autenticação e autorização futuramente
+
+---
+
+## 📌 Melhorias na Documentação
+
+Também serão adicionados ao README:
+
+- Como rodar o projeto com Docker
+- Como importar a collection do Postman
+- Prints dos endpoints no Postman
+- Regras de negócio da aplicação
+- Diagrama simples das entidades e relacionamentos
+
+---
+
+## 🧩 Diagrama Simples das Entidades
+
+```text
+Usuario
+  └── pode possuir várias Reservas
+
+Sala
+  └── pode possuir várias Reservas
+
+Reserva
+  ├── pertence a um Usuario
+  └── pertence a uma Sala
