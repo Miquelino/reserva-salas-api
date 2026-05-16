@@ -9,8 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service // Define esta classe como camada de serviço do Spring
 public class UsuarioService {
+
+    private static final Set<String> CAMPOS_ORDENACAO = Set.of("id", "nome", "email", "idade", "cpf");
 
     // Injeta automaticamente o repository de usuários
     @Autowired
@@ -33,7 +37,8 @@ public class UsuarioService {
     public Page<Usuario> listar(Pageable paginacao) {
 
         // Busca todos os usuários no banco
-        return repository.findAll(paginacao);
+        Pageable paginacaoValidada = PageableUtils.withAllowedSort(paginacao, CAMPOS_ORDENACAO, "nome");
+        return repository.findAll(paginacaoValidada);
     }
 
     // Método responsável por deletar um usuário pelo ID

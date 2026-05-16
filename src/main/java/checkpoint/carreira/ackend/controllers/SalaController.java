@@ -1,9 +1,12 @@
 package checkpoint.carreira.ackend.controllers;
 
 import checkpoint.carreira.ackend.dto.DadosDetalhamentoSala;
+import checkpoint.carreira.ackend.dto.DadosAtualizacaoSala;
 import checkpoint.carreira.ackend.dto.SalaDTO;
 import checkpoint.carreira.ackend.entities.Sala;
 import checkpoint.carreira.ackend.service.SalaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 // Indica que essa classe é um controller REST,
 // ou seja, ela recebe requisições HTTP e devolve respostas JSON.
 @RestController
+@Tag(name = "Salas", description = "Endpoints para cadastro, listagem, atualizacao e exclusao de salas")
 
 // Define o caminho base de todas as rotas desse controller.
 @RequestMapping("/salas")
@@ -29,6 +33,7 @@ public class SalaController {
 
     // Endpoint responsável por cadastrar uma nova sala.
     // Recebe requisições POST em /salas/cadastrar
+    @Operation(summary = "Cadastrar sala", description = "Cria uma nova sala para reserva.")
     @PostMapping("/cadastrar")
     public ResponseEntity<DadosDetalhamentoSala> cadastrarSala(
 
@@ -56,6 +61,7 @@ public class SalaController {
 
     // Endpoint para listar as salas cadastradas.
     // Responde requisições GET em /salas/listarSalas
+    @Operation(summary = "Listar salas", description = "Lista as salas cadastradas com paginacao.")
     @GetMapping("/listarSalas")
     public ResponseEntity<Page<DadosDetalhamentoSala>> listarSala(
 
@@ -75,12 +81,11 @@ public class SalaController {
 
     // Endpoint para deletar uma sala pelo ID.
     // Responde requisições DELETE em /salas/deletar/{id}
+    @Operation(summary = "Deletar sala", description = "Remove uma sala pelo ID.")
     @DeleteMapping("/deletar/{id}")
-
     // Garante que a operação aconteça dentro de uma transação.
     @Transactional
     public ResponseEntity<Void> deletarSala(
-
             // Captura o ID enviado na URL.
             @PathVariable("id") Long id) {
 
@@ -94,6 +99,10 @@ public class SalaController {
 
     // Endpoint para atualizar uma sala existente.
     // Responde requisições PUT em /salas/atualizarSala/{id}
+    @Operation(
+            summary = "Atualizar sala",
+            description = "Informe o ID da sala na URL e envie no body apenas os campos que deseja alterar."
+    )
     @PutMapping("/atualizarSala/{id}")
 
     // Mantém a operação dentro de uma transação.
@@ -104,7 +113,7 @@ public class SalaController {
             @PathVariable Long id,
 
             // Recebe os novos dados da sala no corpo da requisição.
-            @RequestBody DadosDetalhamentoSala dados) {
+            @RequestBody @Valid DadosAtualizacaoSala dados) {
 
         // Atualiza as informações da sala.
         Sala sala = salaService.atualizarInformacoes(id, dados);

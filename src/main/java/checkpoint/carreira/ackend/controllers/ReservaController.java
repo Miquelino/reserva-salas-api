@@ -1,18 +1,17 @@
 package checkpoint.carreira.ackend.controllers;
 
 // DTOs usados para entrada e saída de dados
-import checkpoint.carreira.ackend.dto.DadosAtualizacaoUsuario;
 import checkpoint.carreira.ackend.dto.ReservaDTO;
-import checkpoint.carreira.ackend.dto.UsuarioDetalhamentoDTO;
 
 // Entidades do sistema
 import checkpoint.carreira.ackend.entities.Reserva;
-import checkpoint.carreira.ackend.entities.Usuario;
 
 // Camada de serviço
 import checkpoint.carreira.ackend.service.ReservaService;
 
 // Importações do Spring/Jakarta
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -26,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 // Define esta classe como um controller REST
 @RestController
+@Tag(name = "Reservas", description = "Endpoints para criar, listar, atualizar e excluir reservas")
 
 // Define a rota base:
 // todas as rotas começam com /reservasala
@@ -38,8 +38,9 @@ public class ReservaController {
 
     // Endpoint responsável por criar reservas
     // Método HTTP: POST
+    @Operation(summary = "Criar reserva", description = "Cria uma reserva vinculando uma sala a um usuario.")
     @PostMapping("/reservar")
-    public ResponseEntity cadastrar(
+    public ResponseEntity<ReservaDTO> cadastrar(
 
             // Recebe os dados da reserva no corpo da requisição
             // @Valid executa validações do DTO
@@ -65,6 +66,7 @@ public class ReservaController {
 
     // Endpoint responsável por listar reservas
     // Método HTTP: GET
+    @Operation(summary = "Listar reservas", description = "Lista as reservas cadastradas com paginacao.")
     @GetMapping("/listarReservas")
 
     // Mantém a sessão do Hibernate aberta
@@ -87,6 +89,7 @@ public class ReservaController {
 
     // Endpoint responsável por deletar reservas
     // Método HTTP: DELETE
+    @Operation(summary = "Deletar reserva", description = "Remove uma reserva pelo ID.")
     @DeleteMapping("/deletar/{id}")
 
     // Garante transação no banco
@@ -106,6 +109,7 @@ public class ReservaController {
 
     // Endpoint responsável por atualizar reservas
     // Método HTTP: PUT
+    @Operation(summary = "Atualizar reserva", description = "Atualiza os dados de uma reserva existente.")
     @PutMapping("/alterarReserva/{id}")
 
     // Garante transação durante atualização

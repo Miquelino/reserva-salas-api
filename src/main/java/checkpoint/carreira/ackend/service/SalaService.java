@@ -1,5 +1,6 @@
 package checkpoint.carreira.ackend.service;
 
+import checkpoint.carreira.ackend.dto.DadosAtualizacaoSala;
 import checkpoint.carreira.ackend.dto.DadosDetalhamentoSala;
 import checkpoint.carreira.ackend.dto.SalaDTO;
 import checkpoint.carreira.ackend.entities.Sala;
@@ -9,8 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service // Marca esta classe como camada de serviço do Spring
 public class SalaService {
+
+    private static final Set<String> CAMPOS_ORDENACAO = Set.of("id", "nome", "capacidade", "ativa");
 
     // Injeta automaticamente o repository de Sala
     @Autowired
@@ -30,7 +35,8 @@ public class SalaService {
     public Page<Sala> listar(Pageable paginacao) {
 
         // Busca todas as salas no banco
-        return salaRepository.findAll(paginacao);
+        Pageable paginacaoValidada = PageableUtils.withAllowedSort(paginacao, CAMPOS_ORDENACAO, "nome");
+        return salaRepository.findAll(paginacaoValidada);
     }
 
     // Método responsável por deletar uma sala pelo ID
@@ -39,14 +45,14 @@ public class SalaService {
         // Busca a sala pelo ID
         // Se não encontrar, lança exceção
         Sala sala = salaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Sala não encontrada"));
 
         // Remove a sala do banco
         salaRepository.delete(sala);
     }
 
     // Método responsável por atualizar informações da sala
-    public Sala atualizarInformacoes(Long id, DadosDetalhamentoSala dados) {
+    public Sala atualizarInformacoes(Long id, DadosAtualizacaoSala dados) {
 
         // Busca a sala no banco pelo ID
         Sala sala = salaRepository.findById(id)

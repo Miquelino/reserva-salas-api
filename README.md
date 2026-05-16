@@ -17,6 +17,7 @@ API REST desenvolvida com Java + Spring Boot para gerenciamento de usuários, sa
 - Docker Compose
 - Lombok
 - Jakarta Validation
+- Springdoc OpenAPI / Swagger
 
 ---
 
@@ -116,6 +117,20 @@ A API estará disponível em:
 http://localhost:8080
 ```
 
+## Swagger / OpenAPI
+
+Com a aplicacao rodando, a documentacao interativa fica disponivel em:
+
+```text
+http://localhost:8080/swagger-ui.html
+```
+
+O contrato OpenAPI em JSON fica disponivel em:
+
+```text
+http://localhost:8080/v3/api-docs
+```
+
 ---
 
 ## 📬 Como Importar a Collection do Postman
@@ -195,7 +210,6 @@ Melhorias planejadas para evolução da API:
   - criação
   - atualização
   - detalhamento
-- Adicionar Swagger/OpenAPI para documentação interativa
 - Implementar migrations com Flyway
 - Criar testes automatizados para regras de negócio
 - Melhorar mensagens de erro

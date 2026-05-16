@@ -6,6 +6,8 @@ import checkpoint.carreira.ackend.dto.UsuarioDetalhamentoDTO;
 import checkpoint.carreira.ackend.entities.Usuario;
 import checkpoint.carreira.ackend.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -19,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 // Define esta classe como um Controller REST
 @RestController
+@Tag(name = "Usuarios", description = "Endpoints para cadastro, listagem, atualizacao e exclusao de usuarios")
 
 // Define a rota base dos endpoints
 // Se estivesse "/reservasala", todas as rotas começariam com esse caminho
@@ -31,6 +34,7 @@ public class UsuarioController {
 
     // Endpoint responsável por cadastrar usuários
     // Método HTTP: POST
+    @Operation(summary = "Cadastrar usuario", description = "Cria um novo usuario no sistema.")
     @PostMapping("/cadastrarUsuarios")
     public ResponseEntity<UsuarioDetalhamentoDTO> cadastrar(
 
@@ -58,6 +62,7 @@ public class UsuarioController {
 
     // Endpoint responsável por listar usuários
     // Método HTTP: GET
+    @Operation(summary = "Listar usuarios", description = "Lista os usuarios cadastrados com paginacao.")
     @GetMapping("/listarUsuarios")
     public ResponseEntity<Page<UsuarioDetalhamentoDTO>> listar(
 
@@ -78,6 +83,7 @@ public class UsuarioController {
 
     // Endpoint responsável por deletar usuários
     // Método HTTP: DELETE
+    @Operation(summary = "Deletar usuario", description = "Remove um usuario pelo ID.")
     @DeleteMapping("/deletar/{id}")
 
     // Garante transação no banco
@@ -97,6 +103,7 @@ public class UsuarioController {
 
     // Endpoint responsável por atualizar usuários
     // Método HTTP: PUT
+    @Operation(summary = "Atualizar usuario", description = "Atualiza os dados de um usuario existente.")
     @PutMapping("/atualizarUsuario/{id}")
 
     // Garante transação no banco

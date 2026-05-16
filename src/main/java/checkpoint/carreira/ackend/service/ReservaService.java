@@ -14,8 +14,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service // Define esta classe como uma camada de serviço do Spring
 public class ReservaService {
+
+    private static final Set<String> CAMPOS_ORDENACAO = Set.of("id", "inicio", "fim", "status");
 
     // Injeta o repository responsável pelas reservas
     @Autowired
@@ -76,7 +80,8 @@ public class ReservaService {
 
     // Lista todas as reservas com paginação
     public Page<Reserva> listar(Pageable pageable) {
-        return reservaRepository.findAll(pageable);
+        Pageable paginacao = PageableUtils.withAllowedSort(pageable, CAMPOS_ORDENACAO, "inicio");
+        return reservaRepository.findAll(paginacao);
     }
 
     // Remove uma reserva pelo ID
